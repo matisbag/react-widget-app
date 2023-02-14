@@ -6,7 +6,7 @@ import { City } from '../utils/geoDb'
 import { cityContext } from '../utils/cityContext'
 
 function App() {
-  const [city, setCity] = useState<City | null>(null)
+  const [city, setCity] = useState<City | undefined>(undefined)
 
   return (
     <main>
