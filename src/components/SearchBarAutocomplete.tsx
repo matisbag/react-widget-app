@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react'
 import { useDebounce } from '../utils/useDebounce'
 import { GEO_DB_BASE_URL, GEO_DB_KEY, City } from '../utils/geoDb'
 
-function SearchBarAutocomplete() {
+type Props = {
+  onCityUpdate: (value: City) => void
+}
+
+function SearchBarAutocomplete({ onCityUpdate }: Props) {
   const [value, setValue] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [results, setResults] = useState<City[]>([])
@@ -15,8 +19,9 @@ function SearchBarAutocomplete() {
     setClicked(false)
   }
 
-  const handleResultClick = (result: any) => {
+  const handleResultClick = (result: City) => {
     // TODO: set global variable with values
+    onCityUpdate(result)
     setClicked(true)
     setValue(result.name)
     setShowResults(false)
@@ -54,14 +59,14 @@ function SearchBarAutocomplete() {
   }, [debouncedValue, clicked])
 
   return (
-    <div className="flex flex-col w-full mb-4">
+    <div className="flex flex-col w-full mb-10">
       <div className="flex items-center relative">
         <input
           value={value}
           onChange={(e) => handleInputChange(e.target.value)}
           type="text"
           className="flex-1 px-3 py-1.5 min-w-0 text-gray-700 bg-white border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-          placeholder="Search"
+          placeholder="Search city"
         />
         {loading && (
           <svg
