@@ -1,17 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useDebounce } from '../utils/useDebounce'
-
-declare const process: {
-  env: {
-    REACT_APP_RAPID_API_KEY: string
-  }
-}
+import { GEO_DB_BASE_URL, GEO_DB_KEY, City } from '../utils/geoDb'
 
 function SearchBarAutocomplete() {
   const [value, setValue] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
-  const [results, setResults] = useState<any[]>([])
-  const [showResults, setShowResults] = useState<boolean>(false) // TODO: Typer dans un fichier utils
+  const [results, setResults] = useState<City[]>([])
+  const [showResults, setShowResults] = useState<boolean>(false)
   const [clicked, setClicked] = useState(false)
   const debouncedValue = useDebounce<string>(value, 1000) // 1 second because of free API
 
@@ -29,16 +24,13 @@ function SearchBarAutocomplete() {
 
   useEffect(() => {
     if (debouncedValue && !clicked) {
-      const API_KEY: string = process.env.REACT_APP_RAPID_API_KEY
-      // Faire un fichier utils ?
-
       setLoading(true)
 
       fetch(
-        `https://wft-geo-db.p.rapidapi.com/v1/geo/cities?namePrefix=${debouncedValue}&minPopulation=20000&types=City`,
+        `${GEO_DB_BASE_URL}?namePrefix=${debouncedValue}&minPopulation=20000&types=City`,
         {
           headers: {
-            'X-RapidAPI-Key': API_KEY,
+            'X-RapidAPI-Key': GEO_DB_KEY,
           },
         }
       )
