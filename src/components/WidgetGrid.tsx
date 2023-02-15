@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { cityContext } from '../utils/cityContext'
 import { City } from '../utils/geoDb'
+import AddWidget from './AddWidget'
 import Card from './Card'
 import Weather from './Weather'
 
@@ -10,9 +11,9 @@ function WidgetGrid() {
   if (city) {
     return (
       <>
-        <h1 className="text-xl font-bold text-gray-900 mb-3">
+        <h2 className="text-xl font-bold text-gray-900 mb-3">
           Location : {city.name}
-        </h1>
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Weather />
           <Card title="Google maps">
@@ -25,12 +26,7 @@ function WidgetGrid() {
               )}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
             />
           </Card>
-          <Card>
-            <div className="min-h-[150px] flex flex-col justify-center items-center rounded border border-gray-300 p-2 font-medium bg-gray-200">
-              <img src="/add.svg" alt="add" className="h-4 w-4" />
-              Add widget
-            </div>
-          </Card>
+          <AddWidget />
         </div>
       </>
     )

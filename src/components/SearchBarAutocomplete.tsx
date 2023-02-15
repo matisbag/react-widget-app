@@ -20,7 +20,6 @@ function SearchBarAutocomplete({ onCityUpdate }: Props) {
   }
 
   const handleResultClick = (result: City) => {
-    // TODO: set global variable with values
     onCityUpdate(result)
     setClicked(true)
     setValue(result.name)
@@ -45,12 +44,16 @@ function SearchBarAutocomplete({ onCityUpdate }: Props) {
           }
           throw new Error('Something went wrong')
         })
-        .then((res) => {
-          setResults(res.data)
-          setShowResults(true)
-          setLoading(false)
-        })
-      // TODO: gérer les erreurs
+        .then(
+          (data) => {
+            setResults(data.data)
+            setShowResults(true)
+            setLoading(false)
+          },
+          (error) => {
+            console.log(error.message)
+          }
+        )
     } else {
       setShowResults(false)
       setResults([])
