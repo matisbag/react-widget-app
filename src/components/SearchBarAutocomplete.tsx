@@ -83,7 +83,7 @@ function SearchBarAutocomplete({ onCityUpdate }: Props) {
           {results.map((result) => (
             <li
               key={result.id + result.type}
-              className="p-2 border-b-[1px] border-solid hover:bg-gray-200"
+              className="p-2 border-b-[1px] border-solid hover:bg-gray-200 cursor-default"
               onClick={() => handleResultClick(result)}
             >
               {result.name}

@@ -4,7 +4,11 @@ import { WEATHER_BASE_URL, WEATHER_KEY, WeatherData } from '../utils/weather'
 import { City } from '../utils/geoDb'
 import Card from './Card'
 
-function Weather() {
+interface Props {
+  onRemoveClick: (widgetIndex: number) => void
+}
+
+function Weather({ onRemoveClick }: Props) {
   const city: City | undefined = useContext(cityContext)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -27,7 +31,12 @@ function Weather() {
   }, [city])
 
   return (
-    <Card title="Weather" loading={loading}>
+    <Card
+      title="Weather"
+      loading={loading}
+      widgetIndex={1}
+      onRemoveClick={(e) => onRemoveClick(e)}
+    >
       {error && <div>Error: {error}</div>}
       {data && (
         <>
