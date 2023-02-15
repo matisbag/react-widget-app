@@ -49,18 +49,17 @@ function SearchBarAutocomplete({ onCityUpdate }: Props) {
           setResults(res.data)
           setShowResults(true)
           setLoading(false)
-          console.log(res.data)
         })
       // TODO: gérer les erreurs
     } else {
       setShowResults(false)
       setResults([])
     }
-  }, [debouncedValue, clicked])
+  }, [debouncedValue])
 
   return (
-    <div className="flex flex-col w-full mb-10">
-      <div className="flex items-center relative">
+    <div className="flex flex-col w-full mb-10 relative">
+      <div className="flex items-center">
         <input
           value={value}
           onChange={(e) => handleInputChange(e.target.value)}
@@ -77,7 +76,7 @@ function SearchBarAutocomplete({ onCityUpdate }: Props) {
         )}
       </div>
       {showResults && (
-        <ul className="w-full bg-white border shadow-sm rounded">
+        <ul className="absolute z-10 mt-9 w-full bg-white border shadow-sm rounded">
           {results.map((result) => (
             <li
               key={result.id + result.type}
