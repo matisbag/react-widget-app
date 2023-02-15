@@ -15,7 +15,6 @@ function WidgetGrid() {
         <h2 className="text-xl font-bold text-gray-900 mb-3">
           Location : {city.name}
         </h2>
-        {activeWidgets}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {activeWidgets.includes(1) && (
             <Weather
