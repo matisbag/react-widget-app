@@ -7,7 +7,7 @@ import Weather from './Weather'
 
 function WidgetGrid() {
   const city: City | undefined = useContext(cityContext)
-  const [activeWidget, setActiveWidget] = useState<Array<number>>([1, 2])
+  const [activeWidgets, setactiveWidgets] = useState<Array<number>>([1, 2])
 
   if (city) {
     return (
@@ -15,24 +15,24 @@ function WidgetGrid() {
         <h2 className="text-xl font-bold text-gray-900 mb-3">
           Location : {city.name}
         </h2>
-        {activeWidget}
+        {activeWidgets}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {activeWidget.includes(1) && (
+          {activeWidgets.includes(1) && (
             <Weather
               onRemoveClick={(widgetIndex) =>
-                setActiveWidget(
-                  activeWidget.filter((widget) => widget !== widgetIndex)
+                setactiveWidgets(
+                  activeWidgets.filter((widget) => widget !== widgetIndex)
                 )
               }
             />
           )}
-          {activeWidget.includes(2) && (
+          {activeWidgets.includes(2) && (
             <Card
               widgetIndex={2}
               title="Google maps"
               onRemoveClick={(widgetIndex) =>
-                setActiveWidget(
-                  activeWidget.filter((widget) => widget !== widgetIndex)
+                setactiveWidgets(
+                  activeWidgets.filter((widget) => widget !== widgetIndex)
                 )
               }
             >
@@ -46,7 +46,10 @@ function WidgetGrid() {
               />
             </Card>
           )}
-          <AddWidget />
+          <AddWidget
+            activeWidgets={activeWidgets}
+            onActiveWidgetsUpdate={(e) => setactiveWidgets(e)}
+          />
         </div>
       </>
     )
